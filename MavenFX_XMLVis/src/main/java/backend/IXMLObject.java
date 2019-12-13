@@ -69,12 +69,18 @@ public interface IXMLObject {
      */
     public void addChildren(IXMLObject child);
     
+    
+    public void addChildren(IXMLObject... children);
+    
     /**
      * 
      * @return Parent-Object in the Hirachy
      * @throws IllegalStateException if it's a root Object
      */
     public IXMLObject getParent() throws IllegalStateException;
+    
+    
+    public void setParent(IXMLObject parent);
     
     /**
      * 
