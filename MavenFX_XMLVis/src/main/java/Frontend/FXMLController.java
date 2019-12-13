@@ -1,4 +1,4 @@
-package at.htlstp.gravogel.mavenfx_xmlvis;
+package Frontend;
 
 import java.net.URL;
 import java.util.ResourceBundle;
