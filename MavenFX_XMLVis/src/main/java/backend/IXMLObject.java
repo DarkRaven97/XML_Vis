@@ -33,6 +33,12 @@ public interface IXMLObject {
     public Integer getUID();
     
     /**
+     * 
+     * @return 
+     */
+    public Collection<Integer> getForeignKeys();
+    
+    /**
      * Get all tags from the XML object that can't be Identified as Name or ID
      * @return a Map containing <Tagname,TagValue>
      */
@@ -40,15 +46,35 @@ public interface IXMLObject {
     
     /**
      * 
-     * @return weather or not this object has any Child-objects in the Hirachy
+     * @param tagName
+     * @param tagValue 
+     */
+    public void addTag(String tagName,String tagValue);
+    
+    /**
+     * 
+     * @return weather or not this object has any Child-Objects in the Hirachy
      */
     public boolean hasChildren();
     
     /**
      * 
-     * @return the Child-objects in the Hirachy, or an empty collection if the Object doesn't have any children
+     * @return the Child-Objects in the Hirachy, or an empty collection if the Object doesn't have any children
      */
     public Collection<IXMLObject> getChildren();
+    
+    /**
+     * 
+     * @param child 
+     */
+    public void addChildren(IXMLObject child);
+    
+    /**
+     * 
+     * @return Parent-Object in the Hirachy
+     * @throws IllegalStateException if it's a root Object
+     */
+    public IXMLObject getParent() throws IllegalStateException;
     
     /**
      * 
