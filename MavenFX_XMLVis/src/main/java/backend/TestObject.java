@@ -9,7 +9,6 @@ import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Map;
-import java.util.Random;
 import java.util.function.Consumer;
 import javafx.scene.image.Image;
 
