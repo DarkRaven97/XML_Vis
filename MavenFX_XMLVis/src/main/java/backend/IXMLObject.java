@@ -84,7 +84,9 @@ public interface IXMLObject {
     
     /**
      * 
-     * @return an 255x255 Icon to represent the Object
+     * @return an 256x256 Icon to represent the Object
      */
     public Image getIcon();
+    
+    public void x();
 }

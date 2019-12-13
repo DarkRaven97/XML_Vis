@@ -194,4 +194,5 @@ public class TestObject implements IXMLObject {
     public void setParent(IXMLObject parent) {
     this.parent=(TestObject) parent;
     }
+
 }
