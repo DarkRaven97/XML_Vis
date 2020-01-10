@@ -88,5 +88,4 @@ public interface IXMLObject {
      */
     public Image getIcon();
     
-    public void x();
 }
