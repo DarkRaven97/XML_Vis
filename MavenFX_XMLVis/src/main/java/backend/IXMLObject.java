@@ -14,78 +14,93 @@ import javafx.scene.image.Image;
  * @author 20150210
  */
 public interface IXMLObject {
+
     /**
-     * 
-     * @return 
+     *
+     * @return
      */
     public String getName();
-    
+
     /**
-     * 
-     * @return 
+     *
+     * @return
      */
     public String getType();
-    
+
     /**
-     * 
-     * @return 
+     *
+     * @return
      */
     public Integer getUID();
-    
+
     /**
-     * 
-     * @return 
+     *
+     * @return
      */
     public Collection<Integer> getForeignKeys();
-    
+
     /**
      * Get all tags from the XML object that can't be Identified as Name or ID
+     *
      * @return a Map containing <Tagname,TagValue>
      */
-    public Map<String,String> getTags();
-    
+    public Map<String, String> getTags();
+
     /**
-     * 
+     *
      * @param tagName
-     * @param tagValue 
+     * @param tagValue
      */
-    public void addTag(String tagName,String tagValue);
-    
+    public void addTag(String tagName, String tagValue);
+
     /**
-     * 
+     *
      * @return weather or not this object has any Child-Objects in the Hirachy
      */
     public boolean hasChildren();
-    
+
     /**
-     * 
-     * @return the Child-Objects in the Hirachy, or an empty collection if the Object doesn't have any children
+     *
+     * @return the Child-Objects in the Hirachy, or an empty collection if the
+     * Object doesn't have any children
      */
     public Collection<IXMLObject> getChildren();
-    
+
     /**
-     * 
-     * @param child 
+     *
+     * @param child
      */
     public void addChildren(IXMLObject child);
-    
-    
-    public void addChildren(IXMLObject... children);
-    
+
     /**
-     * 
+     *
+     * @param children
+     */
+    public void addChildren(IXMLObject... children);
+
+    /**
+     *
+     * @return if this is a root object
+     */
+    public boolean isRoot();
+
+    /**
+     *
      * @return Parent-Object in the Hirachy
      * @throws IllegalStateException if it's a root Object
      */
     public IXMLObject getParent() throws IllegalStateException;
-    
-    
-    public void setParent(IXMLObject parent);
-    
+
     /**
-     * 
+     *
+     * @param parent
+     */
+    public void setParent(IXMLObject parent);
+
+    /**
+     *
      * @return an 256x256 Icon to represent the Object
      */
     public Image getIcon();
-    
+
 }
