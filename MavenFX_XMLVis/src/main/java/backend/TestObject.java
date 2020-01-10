@@ -55,7 +55,7 @@ public class TestObject implements IXMLObject {
             to.getChildren().forEach(new Consumer() {
                 @Override
                 public void accept(Object t) {
-                    putTestTags(t);
+                    putTestTags((TestObject)t);
                 }
             });
         }
