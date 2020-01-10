@@ -30,11 +30,11 @@ public class TestObject implements IXMLObject {
         TestObject keypad4 = new TestObject("keypad4", "keypad", 987535, new Image(Paths.get("TestIcons", "split_2.jpg").toString()));
         TestObject keypad5 = new TestObject("keypad5", "keypad", 987465, new Image(Paths.get("TestIcons", "split_2.jpg").toString()));
         TestObject keypad6 = new TestObject("keypad6", "keypad", 321654, new Image(Paths.get("TestIcons", "split_2.jpg").toString()));
-        erg.addChildren(bus1,bus2,bus3,bus4);
-        bus1.addChildren(keypad1,keypad2);
+        erg.addChildren(bus1, bus2, bus3, bus4);
+        bus1.addChildren(keypad1, keypad2);
         bus2.addChildren(keypad3);
         bus3.addChildren(keypad6);
-        bus3.addChildren(keypad4,keypad5);
+        bus3.addChildren(keypad4, keypad5);
         putTestTags(erg);
         return erg;
     }
@@ -55,7 +55,7 @@ public class TestObject implements IXMLObject {
             to.getChildren().forEach(new Consumer() {
                 @Override
                 public void accept(Object t) {
-                    putTestTags((TestObject)t);
+                    putTestTags((TestObject) t);
                 }
             });
         }
@@ -192,7 +192,7 @@ public class TestObject implements IXMLObject {
 
     @Override
     public void setParent(IXMLObject parent) {
-    this.parent=(TestObject) parent;
+        this.parent = (TestObject) parent;
     }
 
 }

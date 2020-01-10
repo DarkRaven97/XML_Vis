@@ -39,7 +39,7 @@ public class XMLObjects {
      * @return the root object of the panel.xml (Zentrale)
      */
     public static IXMLObject readPanel(Path panelPath) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return (IXMLObject) createTree(panelPath, true, "User").toArray()[0];
     }
 
     /**
@@ -59,7 +59,7 @@ public class XMLObjects {
      * @return all root objects of the facility (Villa)
      */
     public static Collection<IXMLObject> readFacility(Path facilityPath) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return createTree(facilityPath, true, "User");
     }
 
     /**
@@ -79,7 +79,7 @@ public class XMLObjects {
      * @return all user data found in the given file
      */
     public static Collection<IXMLObject> readUser(Path panelPath) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return createTree(panelPath, false, "User");
     }
 
     /**
