@@ -9,6 +9,7 @@ import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Map;
+import java.util.Objects;
 import java.util.function.Consumer;
 import javafx.scene.image.Image;
 
@@ -47,16 +48,20 @@ public class TestObject implements IXMLObject {
     private TestObject parent;
     private Collection<Integer> fk;
 
-    private static void putTestTags(TestObject to) {
+    private static void putTestTags(TestObject to){
+        putTestTags(to,null);
+    }
+    private static void putTestTags(TestObject to,Integer pUID) {
         to.addTag("test", "testValue");
         to.addTag("TagName", "TagValue");
         to.addTag("Something", "else");
+        if(Objects.nonNull(pUID))
+            to.addTag("parent", pUID.toString());
+        Integer uid = (int) (Math.random()*Integer.MAX_VALUE);
+        to.addTag("UID", uid.toString());
         if (to.hasChildren()) {
-            to.getChildren().forEach(new Consumer() {
-                @Override
-                public void accept(Object t) {
-                    putTestTags((TestObject) t);
-                }
+            to.getChildren().forEach((Object t) -> {
+                putTestTags((TestObject) t,uid);
             });
         }
     }
@@ -174,9 +179,6 @@ public class TestObject implements IXMLObject {
         children.add(child);
     }
 
-    public void setFk(Collection<Integer> fk) {
-        this.fk = fk;
-    }
 
     public void addFk(Integer n) {
         fk.add(n);
@@ -193,6 +195,11 @@ public class TestObject implements IXMLObject {
     @Override
     public void setParent(IXMLObject parent) {
         this.parent = (TestObject) parent;
+    }
+
+    @Override
+    public boolean isRoot() {
+    return Objects.isNull(parent);
     }
 
 }
