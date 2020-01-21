@@ -5,6 +5,7 @@
  */
 package backend;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -26,6 +27,7 @@ public class XMLObject implements IXMLObject {
     private final Collection<IXMLObject> children = new HashSet<>();
     private Collection<Integer> foreignKeys = new HashSet<>();
     private Image icon;
+    private IXMLObject parent;
 
     public XMLObject(String tagName) {
         this.tagName = tagName;
@@ -98,7 +100,7 @@ public class XMLObject implements IXMLObject {
 
     @Override
     public Collection<Integer> getForeignKeys() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return this.foreignKeys;
     }
 
     @Override
@@ -123,37 +125,52 @@ public class XMLObject implements IXMLObject {
 
     @Override
     public boolean hasChildren() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return !this.children.isEmpty();
     }
 
     @Override
     public Collection<IXMLObject> getChildren() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return this.children;
+    }
+
+    private boolean isMyChild(IXMLObject o) {
+        for (Map.Entry e : o.getTags().entrySet()) {
+            if (this.uid.equals(Integer.parseInt(e.getValue().toString()))) {
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override
     public void addChildren(IXMLObject child) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if (!isMyChild(child)) {
+            throw new IllegalArgumentException("");
+        }
+        this.children.add(child);
+        child.setParent(this);
     }
 
     @Override
     public void addChildren(IXMLObject... children) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Arrays.stream(children).parallel().filter(a -> isMyChild(a)).peek(a -> a.setParent(this)).forEach(this.children::add);
     }
 
     @Override
     public boolean isRoot() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return Objects.isNull(parent);
     }
 
     @Override
     public IXMLObject getParent() throws IllegalStateException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return parent;
     }
 
     @Override
     public void setParent(IXMLObject parent) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if (((XMLObject) parent).isMyChild(parent)) {
+            this.parent = parent;
+        }
     }
 
     @Override
@@ -187,7 +204,7 @@ public class XMLObject implements IXMLObject {
 
     @Override
     public Integer getUID() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return uid;
     }
 
 }
