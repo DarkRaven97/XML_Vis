@@ -133,15 +133,6 @@ public class XMLObject implements IXMLObject {
         return this.children;
     }
 
-    private boolean isMyChild(IXMLObject o) {
-        for (Map.Entry e : o.getTags().entrySet()) {
-            if (this.uid.equals(Integer.parseInt(e.getValue().toString()))) {
-                return true;
-            }
-        }
-        return false;
-    }
-
     @Override
     public void addChildren(IXMLObject child) {
         if (!isMyChild(child)) {
@@ -205,6 +196,15 @@ public class XMLObject implements IXMLObject {
     @Override
     public Integer getUID() {
         return uid;
+    }
+
+    private boolean isMyChild(IXMLObject o) {
+        for (Map.Entry e : o.getTags().entrySet()) {
+            if (this.uid.equals(Integer.parseInt(e.getValue().toString()))) {
+                return true;
+            }
+        }
+        return false;
     }
 
 }
