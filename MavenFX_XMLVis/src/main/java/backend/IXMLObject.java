@@ -40,7 +40,7 @@ public interface IXMLObject {
     public Collection<Integer> getForeignKeys();
 
     /**
-     * Get all tags from the XML object that can't be Identified as Name or ID
+     * Get all tags from the XML object that can't be Identified as Name, ID or Type
      *
      * @return a Map containing <Tagname,TagValue>
      */
