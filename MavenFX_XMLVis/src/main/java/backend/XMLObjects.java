@@ -10,7 +10,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.HashSet;
+import java.util.TreeSet;
 import java.util.stream.Collectors;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -35,7 +35,7 @@ public class XMLObjects {
      * @param panelName
      * @return the root object of the panel.xml (Zentrale)
      */
-    public static IXMLObject readPanel(String panelName) throws IOException{
+    public static IXMLObject readPanel(String panelName) throws IOException {
         return readPanel(Paths.get(panelName));
     }
 
@@ -44,7 +44,7 @@ public class XMLObjects {
      * @param panelPath
      * @return the root object of the panel.xml (Zentrale)
      */
-    public static IXMLObject readPanel(Path panelPath) throws IOException{
+    public static IXMLObject readPanel(Path panelPath) throws IOException {
         return (IXMLObject) createTree(panelPath, true, "User").toArray()[0];
     }
 
@@ -55,7 +55,7 @@ public class XMLObjects {
      * @param facilityName
      * @return all the root objects of the facility.xml
      */
-    public static Collection<IXMLObject> readFacility(String facilityName) throws IOException{
+    public static Collection<IXMLObject> readFacility(String facilityName) throws IOException {
         return readFacility(Paths.get(facilityName));
     }
 
@@ -64,7 +64,7 @@ public class XMLObjects {
      * @param facilityPath
      * @return all root objects of the facility (Villa)
      */
-    public static Collection<IXMLObject> readFacility(Path facilityPath) throws IOException{
+    public static Collection<IXMLObject> readFacility(Path facilityPath) throws IOException {
         return createTree(facilityPath, true, "User");
     }
 
@@ -84,7 +84,7 @@ public class XMLObjects {
      * @param panelPath
      * @return all user data found in the given file
      */
-    public static Collection<IXMLObject> readUser(Path panelPath) throws IOException{
+    public static Collection<IXMLObject> readUser(Path panelPath) throws IOException {
         return createTree(panelPath, false, "User");
     }
 
@@ -114,31 +114,33 @@ public class XMLObjects {
      *
      * @param path
      * @return
-     * @throws backend.exceptions.ParseException
      */
     public static Collection<IXMLObject> readAllFromFile(Path path) throws IOException {
         try {
-            return collect(DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(path.toFile()).getChildNodes());
+            return collect(DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(path.toFile()).getChildNodes(), "");
         } catch (ParserConfigurationException | SAXException ex) {
             throw new IOException(ex);
         }
     }
 
-    private static Collection<IXMLObject> collect(NodeList nl) {
+    private static Collection<IXMLObject> collect(NodeList nl, String name) {
 //        System.out.println("<---------------------------------------------------------------\n");
-        Collection<IXMLObject> erg = new HashSet<>();
+        Collection<IXMLObject> erg = new TreeSet<>();
         for (int i = 0; i < nl.getLength(); i++) {
             Node h = nl.item(i);
-            if (childs(h.getChildNodes())) {
-                erg.addAll(collect(h.getChildNodes()));
-            } else if (h.hasChildNodes()) {
-                XMLObject xo = new XMLObject(h.getNodeName());
+            if (childs2(h.getChildNodes())) {
+                erg.addAll(collect(h.getChildNodes(), h.getNodeName()));
+            } else {
+                XMLObject xo = new XMLObject(name);
                 erg.add(xo);
-//                System.out.println(h.getParentNode() + " " + h + " " + h.getChildNodes().item(0));
-                String tagName = cutStrings(h.toString());
-                String tagValue = cutStringValue(h.getChildNodes().item(0).toString());
-                xo.addTag(tagName, tagValue);
+                for (int j = 0; j < h.getChildNodes().getLength(); j++) {
+                    Node h2 = h.getChildNodes().item(j);
+                    String tagName = cutStrings(h2.toString());
+                    String tagValue = h2.getNodeValue();
+                    xo.addTag(tagName, tagValue);
+                }
 
+//                System.out.println(h.getParentNode() + " " + h + " " + h.getChildNodes().item(0));
 //                String bonusTag = XSL.get(tagValue);
 //                if (Objects.nonNull(bonusTag)) {
 //                    xo.addTag("XSLString", bonusTag);
@@ -160,7 +162,14 @@ public class XMLObjects {
         }
         return false;
     }
-
+    private static boolean childs2(NodeList nl) {
+        for (int i = 0; i < nl.getLength(); i++) {
+            if (childs(nl.item(i).getChildNodes())) {
+                return true;
+            }
+        }
+        return false;
+    }
     private static String cutStringValue(String s) {
         return s.substring(s.indexOf(' ') + 1, s.length() - 1);
     }
@@ -221,13 +230,10 @@ public class XMLObjects {
     }
 
     public static Collection<IXMLObject> getChildren(Collection<IXMLObject> objects, IXMLObject parent) {
-        objects.forEach((object) -> {
-            parent.getTags().values().parallelStream()
-                    .filter((value) -> (object.getUID().toString().equals(value)))
-                    .forEachOrdered((item) -> {
-                        parent.addChildren(object);
-                    });
+        objects.parallelStream().forEach(object -> {
+
         });
         return parent.getChildren();
     }
 }
+

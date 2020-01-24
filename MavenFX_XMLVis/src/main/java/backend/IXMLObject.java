@@ -13,11 +13,13 @@ import javafx.scene.image.Image;
  *
  * @author 20150210
  */
-public interface IXMLObject {
+public interface IXMLObject extends Comparable<IXMLObject> {
 
+    public String getTagName();
+    
     /**
      *
-     * @return
+     * @return the name or null
      */
     public String getName();
 

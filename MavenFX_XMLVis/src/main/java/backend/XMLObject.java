@@ -110,17 +110,21 @@ public class XMLObject implements IXMLObject {
 
     @Override
     public void addTag(String tagName, String tagValue) {
-        if (tagName.equalsIgnoreCase("UID")) {
-            uid = Integer.parseInt(tagValue);
-        } else {
-            try {
+        try {
+            if (tagName.equalsIgnoreCase("UID")) {
+                uid = Integer.parseInt(tagValue);
+            } else if (tagName.equalsIgnoreCase("Name")) {
+                name = tagValue;
+            } else if (tagName.equalsIgnoreCase("Type")) {
+                type = tagValue;
+            } else if (tagValue.matches("[1-9]*")) {
                 int h = Integer.parseInt(tagValue);
                 foreignKeys.add(h);
-            } catch (NumberFormatException nfe) {
-
             }
+            tags.put(tagName, tagValue);
+        } catch (NumberFormatException ex) {
+            ex.printStackTrace();
         }
-        tags.put(tagName, tagValue);
     }
 
     @Override
@@ -135,9 +139,9 @@ public class XMLObject implements IXMLObject {
 
     @Override
     public void addChildren(IXMLObject child) {
-        if (!isMyChild(child)) {
-            throw new IllegalArgumentException("");
-        }
+//        if (!isMyChild(child)) {
+//            throw new IllegalArgumentException("");
+//        }
         this.children.add(child);
         child.setParent(this);
     }
@@ -205,6 +209,22 @@ public class XMLObject implements IXMLObject {
             }
         }
         return false;
+    }
+
+    @Override
+    public String toString() {
+        return "XMLObject{" + "tagName=" + tagName + ", uid=" + uid + ", name=" + name + ", type=" + type + ", tags=" + tags + '}';
+    }
+
+    @Override
+    public int compareTo(IXMLObject o) {
+        if (!(o instanceof XMLObject)) {
+            return -1;
+        }
+        if (!this.tagName.equals(o.getName())) {
+            return this.tagName.compareTo(o.getTagName());
+        }
+        return Integer.compare(this.uid, o.getUID());
     }
 
 }

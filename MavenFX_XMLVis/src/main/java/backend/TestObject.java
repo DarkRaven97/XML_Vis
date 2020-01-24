@@ -202,4 +202,14 @@ public class TestObject implements IXMLObject {
     return Objects.isNull(parent);
     }
 
+    @Override
+    public String getTagName() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public int compareTo(IXMLObject o) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 }
