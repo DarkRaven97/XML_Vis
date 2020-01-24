@@ -1,0 +1,112 @@
+<License>
+  <Info>
+    <Number>00302-04203040-3</Number>
+    <CreationDate>2019-05-15</CreationDate>
+    <CreationTime>17:14:39</CreationTime>
+    <Comment/>
+  </Info>
+  <LicenseData>
+    <Panel>
+      <Name>MB-Secure</Name>
+      <Type>2000</Type>
+      <SerialNumber>00302-04203040</SerialNumber>
+    </Panel>
+    <LicenseInfo>
+      <Version>3</Version>
+      <LicenseType>serial</LicenseType>
+      <SignatureDate>2019-05-15</SignatureDate>
+      <SignatureTime>17:14:39</SignatureTime>
+      <Description/>
+    </LicenseInfo>
+    <CustomerInfo>
+      <CustomerName/>
+      <CustomerLocation>3150 Wilhelmsburg </CustomerLocation>
+      <CustomerAddress1>Industriezone-Burgerfeld 10</CustomerAddress1>
+      <CustomerAddress2/>
+    </CustomerInfo>
+    <InstallerInfo>
+      <InstallerName>ESTG Sicherheitstechnische</InstallerName>
+      <InstallerAddress1>Am Kanal 105 / Ecke Ewaldgasse 5</InstallerAddress1>
+      <InstallerAddress2/>
+      <InstallerEMail>e-Rechnung@estg.biz</InstallerEMail>
+      <InstallerPhone>158652160</InstallerPhone>
+      <InstallerFax>1586667516</InstallerFax>
+    </InstallerInfo>
+    <Data>
+      <Partitions>
+        <Partition>2</Partition>
+      </Partitions>
+      <DetectorGroups>
+        <DetectorGroup>16</DetectorGroup>
+      </DetectorGroups>
+      <Doors>
+        <Door>2</Door>
+        <HWDoor>1</HWDoor>
+        <DoorAperio/>
+      </Doors>
+      <Users>
+        <User>32</User>
+      </Users>
+      <UserGroups>
+        <UserGroup>8</UserGroup>
+      </UserGroups>
+      <Macros>
+        <Macro>20</Macro>
+      </Macros>
+      <Cameras>
+        <Camera>0</Camera>
+      </Cameras>
+      <RemoteClient>
+        <AccessLevel1>0</AccessLevel1>
+        <AccessLevel2>0</AccessLevel2>
+        <AccessLevel3>0</AccessLevel3>
+        <ClientKNX>0</ClientKNX>
+        <ClientMobileApp/>
+      </RemoteClient>
+      <Network>
+        <SNMP>1</SNMP>
+        <ConnectionServer>2</ConnectionServer>
+      </Network>
+      <InternalDialer>
+        <DialerVds2465/>
+        <DialerSiaDC09/>
+      </InternalDialer>
+      <Options>
+        <DesfireCustomerApp>0</DesfireCustomerApp>
+        <EncryptionModulbus>0</EncryptionModulbus>
+      </Options>
+    </Data>
+    <Certificate>-----BEGIN CERTIFICATE-----
+MIIDADCCAqWgAwIBAgIIb+TOs3HRpLEwCgYIKoZIzj0EAwIwXDELMAkGA1UEBhMC
+VVMxJTAjBgNVBAoMHEhvbmV5d2VsbCBJbnRlcm5hdGlvbmFsIEluYy4xDDAKBgNV
+BAsMA0FDUzEYMBYGA1UEAwwPQUNTIFByb2R1Y3RzIENBMCAXDTE5MDUxNTE1MDQ0
+M1oYDzk5OTkwMTAxMDAwMDAwWjBlMQswCQYDVQQGEwJERTElMCMGA1UEChMcSG9u
+ZXl3ZWxsIEludGVybmF0aW9uYWwgSW5jLjEMMAoGA1UECxMDSEJUMSEwHwYDVQQD
+ExhNQi1TZWN1cmUgMDAzMDItMDQyMDMwNDAwWTATBgcqhkjOPQIBBggqhkjOPQMB
+BwNCAAQJufO8lLAH7KePMJTk73+xwBZ4fyh0qGkm6LwFP6ak9GmqCH1BTvB5EBae
+DHLB6z6ZJe2ITEa1SthqQJiAIWZ8o4IBRDCCAUAwDAYDVR0TAQH/BAIwADAfBgNV
+HSMEGDAWgBRNnr/KQZs1FVcXTt9BSeJzY+PFCjA7BggrBgEFBQcBAQQvMC0wKwYI
+KwYBBQUHMAGGH2h0dHA6Ly9ocHBraS5ob25leXdlbGwuY29tL29jc3AwSAYDVR0g
+BEEwPzA9BgwrBgEEAYGkBgIBAQEwLTArBggrBgEFBQcCARYfaHR0cHM6Ly9ocHBr
+aS5ob25leXdlbGwuY29tL2NwczAWBgNVHSUBAf8EDDAKBggrBgEFBQcDAjBBBgNV
+HR8EOjA4MDagNKAyhjBodHRwOi8vaHBwa2kuaG9uZXl3ZWxsLmNvbS9jcmwvQUNT
+UHJvZHVjdHNDQS5jcmwwHQYDVR0OBBYEFLP1lbvHxRR9AJOo8EtmnzHORKlQMA4G
+A1UdDwEB/wQEAwIDiDAKBggqhkjOPQQDAgNJADBGAiEA7PldYjXKM6oUkrc0SH0j
+Y68yh5O/laDprYB8YMDKiIYCIQCVFwunzt03Xhgrq+zUJ8I4GhJsgGntB8KNqzPR
+MnEz3w==
+-----END CERTIFICATE-----</Certificate>
+  </LicenseData>
+  <Signature>
+    AAE9FFBBB61CE82467AD3675D84AB9C39C43D2A3287EAFA79220E0A570D9DC7650F49FF1AC
+    E4E80FD2F4F22D3F9E77D84ED681C880BB083E701A09BF2EDCE71E266298334F20849EB01A
+    14789A66B3418413D835D218EDF517CDE7B0B4CA6F264BB907068D7EC325223E86D6B46E71
+    73FBC56025BDC799A0782F74E5DDC09D83F75105C98AE97FE8735C7DB04E248C2DA011F86B
+    B3113D686747B15B392F45C1442ED31E53DF378CE9B6C633624900BCECE3FA792747984EF4
+    E2DCD5E6325AD0110B9C18C6FB39376682B1A65063FE0E4AE34BBA6CDA6B56E8FF3CEF5C15
+    B4799DDDFBBBFEF39843E45C27D26D0675DBACCB8F8CFE32E188BC32BE475A817DCD32C34F
+    30267AA8280968A1757B6D7AC0EF0C2B65DE4B1B70D6F161954C172C771C008B257175EDC7
+    D79596FB99901B8F35D341C3B8F693A3D4202A5A09F84A87B577C70DD0CC197211F7750FF3
+    0D688E1F400F74274EAF8EED7B5A3F033B77A25733B4603388453DB3965F50680AB6431A08
+    421835B446A9338AC4415CD376BF
+  </Signature>
+</License>

@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Facility>
+  <Datapoints>
+    <DatapointNumbers>
+      <ItemUID>25165825</ItemUID>
+      <DatapointNumber>1</DatapointNumber>
+      <DatapointType>300070100</DatapointType>
+      <Name>Zentrale</Name>
+      <ItemType>Panel</ItemType>
+      <VirtualItemUID>0</VirtualItemUID>
+    </DatapointNumbers>
+    <DatapointNumbers>
+      <ItemUID>24117249</ItemUID>
+      <DatapointNumber>33</DatapointNumber>
+      <DatapointType>300070005</DatapointType>
+      <Name>Relais 001</Name>
+      <ItemType>Bus2IO</ItemType>
+      <VirtualItemUID>25165825</VirtualItemUID>
+    </DatapointNumbers>
+    <DatapointNumbers>
+      <ItemUID>24117250</ItemUID>
+      <DatapointNumber>34</DatapointNumber>
+      <DatapointType>300070005</DatapointType>
+      <Name>Relais 002</Name>
+      <ItemType>Bus2IO</ItemType>
+      <VirtualItemUID>25165825</VirtualItemUID>
+    </DatapointNumbers>
+    <DatapointNumbers>
+      <ItemUID>24117251</ItemUID>
+      <DatapointNumber>35</DatapointNumber>
+      <DatapointType>300070005</DatapointType>
+      <Name>Analogausgang 001</Name>
+      <ItemType>Bus2IO</ItemType>
+      <VirtualItemUID>25165825</VirtualItemUID>
+    </DatapointNumbers>
+    <DatapointNumbers>
+      <ItemUID>24117252</ItemUID>
+      <DatapointNumber>36</DatapointNumber>
+      <DatapointType>300070005</DatapointType>
+      <Name>Analogausgang 002</Name>
+      <ItemType>Bus2IO</ItemType>
+      <VirtualItemUID>25165825</VirtualItemUID>
+    </DatapointNumbers>
+    <DatapointNumbers>
+      <ItemUID>24117253</ItemUID>
+      <DatapointNumber>37</DatapointNumber>
+      <DatapointType>300070005</DatapointType>
+      <Name>Analogausgang 003</Name>
+      <ItemType>Bus2IO</ItemType>
+      <VirtualItemUID>25165825</VirtualItemUID>
+    </DatapointNumbers>
+    <DatapointNumbers>
+      <ItemUID>24117254</ItemUID>
+      <DatapointNumber>38</DatapointNumber>
+      <DatapointType>300070005</DatapointType>
+      <Name>Analogausgang 004</Name>
+      <ItemType>Bus2IO</ItemType>
+      <VirtualItemUID>25165825</VirtualItemUID>
+    </DatapointNumbers>
+    <DatapointNumbers>
+      <ItemUID>20971521</ItemUID>
+      <DatapointNumber>65</DatapointNumber>
+      <DatapointType>300070004</DatapointType>
+      <Name>Analogeingang 001</Name>
+      <ItemType>Bus2IO</ItemType>
+      <VirtualItemUID>25165825</VirtualItemUID>
+      <PartitionUID1>1048577</PartitionUID1>
+      <DetectorGroupUID>3145729</DetectorGroupUID>
+    </DatapointNumbers>
+    <DatapointNumbers>
+      <ItemUID>20971522</ItemUID>
+      <DatapointNumber>66</DatapointNumber>
+      <DatapointType>300070004</DatapointType>
+      <Name>Analogeingang 002</Name>
+      <ItemType>Bus2IO</ItemType>
+      <VirtualItemUID>25165825</VirtualItemUID>
+      <PartitionUID1>1048577</PartitionUID1>
+      <DetectorGroupUID>3145732</DetectorGroupUID>
+    </DatapointNumbers>
+    <DatapointNumbers>
+      <ItemUID>20971523</ItemUID>
+      <DatapointNumber>67</DatapointNumber>
+      <DatapointType>300070004</DatapointType>
+      <Name>Analogeingang 003</Name>
+      <ItemType>Bus2IO</ItemType>
+      <VirtualItemUID>25165825</VirtualItemUID>
+      <PartitionUID1>1048577</PartitionUID1>
+      <DetectorGroupUID>3145731</DetectorGroupUID>
+    </DatapointNumbers>
+    <DatapointNumbers>
+      <ItemUID>20971524</ItemUID>
+      <DatapointNumber>68</DatapointNumber>
+      <DatapointType>300070004</DatapointType>
+      <Name>Analogeingang 004</Name>
+      <ItemType>Bus2IO</ItemType>
+      <VirtualItemUID>25165825</VirtualItemUID>
+      <PartitionUID1>1048577</PartitionUID1>
+      <DetectorGroupUID>3145730</DetectorGroupUID>
+    </DatapointNumbers>
+    <DatapointNumbers>
+      <ItemUID>1048577</ItemUID>
+      <DatapointNumber>1000</DatapointNumber>
+      <DatapointType>300070000</DatapointType>
+      <Name>Villa</Name>
+      <ItemType>Partition</ItemType>
+      <VirtualItemUID>0</VirtualItemUID>
+    </DatapointNumbers>
+    <DatapointNumbers>
+      <ItemUID>3145729</ItemUID>
+      <DatapointNumber>1513</DatapointNumber>
+      <DatapointType>300070200</DatapointType>
+      <Name>BWM Vorraum</Name>
+      <ItemType>DetectorGroup</ItemType>
+      <VirtualItemUID>1048577</VirtualItemUID>
+    </DatapointNumbers>
+    <DatapointNumbers>
+      <ItemUID>3145730</ItemUID>
+      <DatapointNumber>1514</DatapointNumber>
+      <DatapointType>300070200</DatapointType>
+      <Name>BWM Wohnzimmer</Name>
+      <ItemType>DetectorGroup</ItemType>
+      <VirtualItemUID>1048577</VirtualItemUID>
+    </DatapointNumbers>
+    <DatapointNumbers>
+      <ItemUID>3145731</ItemUID>
+      <DatapointNumber>1515</DatapointNumber>
+      <DatapointType>300070200</DatapointType>
+      <Name>MK Terasse</Name>
+      <ItemType>DetectorGroup</ItemType>
+      <VirtualItemUID>1048577</VirtualItemUID>
+    </DatapointNumbers>
+    <DatapointNumbers>
+      <ItemUID>3145732</ItemUID>
+      <DatapointNumber>1516</DatapointNumber>
+      <DatapointType>300070204</DatapointType>
+      <Name>Spätheimkehrer</Name>
+      <ItemType>DetectorGroup</ItemType>
+      <VirtualItemUID>1048577</VirtualItemUID>
+    </DatapointNumbers>
+    <DatapointNumbers>
+      <ItemUID>3145734</ItemUID>
+      <DatapointNumber>1512</DatapointNumber>
+      <DatapointType>300070200</DatapointType>
+      <Name>MK Eingangstür</Name>
+      <ItemType>DetectorGroup</ItemType>
+      <VirtualItemUID>1048577</VirtualItemUID>
+    </DatapointNumbers>
+    <DatapointNumbers>
+      <ItemUID>3145733</ItemUID>
+      <DatapointNumber>1517</DatapointNumber>
+      <DatapointType>300070203</DatapointType>
+      <Name>Alarmtaster</Name>
+      <ItemType>DetectorGroup</ItemType>
+      <VirtualItemUID>1048577</VirtualItemUID>
+    </DatapointNumbers>
+    <DatapointNumbers>
+      <ItemUID>83886081</ItemUID>
+      <DatapointNumber>6633</DatapointNumber>
+      <DatapointType>300070003</DatapointType>
+      <Name>M1 Heimkehrer</Name>
+      <ItemType>Macro</ItemType>
+      <VirtualItemUID>0</VirtualItemUID>
+    </DatapointNumbers>
+    <DatapointNumbers>
+      <ItemUID>83886082</ItemUID>
+      <DatapointNumber>6634</DatapointNumber>
+      <DatapointType>300070003</DatapointType>
+      <Name>M2 Ausgangszeit</Name>
+      <ItemType>Macro</ItemType>
+      <VirtualItemUID>0</VirtualItemUID>
+    </DatapointNumbers>
+    <DatapointNumbers>
+      <ItemUID>83886083</ItemUID>
+      <DatapointNumber>6632</DatapointNumber>
+      <DatapointType>300070003</DatapointType>
+      <Name>3 Alarm löschen</Name>
+      <ItemType>Macro</ItemType>
+      <VirtualItemUID>0</VirtualItemUID>
+    </DatapointNumbers>
+    <DatapointNumbers>
+      <ItemUID>83886084</ItemUID>
+      <DatapointNumber>6635</DatapointNumber>
+      <DatapointType>300070003</DatapointType>
+      <Name>M4 M1 stopp</Name>
+      <ItemType>Macro</ItemType>
+      <VirtualItemUID>0</VirtualItemUID>
+    </DatapointNumbers>
+    <DatapointNumbers>
+      <ItemUID>83886085</ItemUID>
+      <DatapointNumber>6636</DatapointNumber>
+      <DatapointType>300070003</DatapointType>
+      <Name>M5 STG als MG ansteuern nicht bei int</Name>
+      <ItemType>Macro</ItemType>
+      <VirtualItemUID>0</VirtualItemUID>
+    </DatapointNumbers>
+    <DatapointNumbers>
+      <ItemUID>18874369</ItemUID>
+      <DatapointNumber>5608</DatapointNumber>
+      <DatapointType>300070002</DatapointType>
+      <Name>Eingangstür</Name>
+      <ItemType>Door</ItemType>
+      <VirtualItemUID>18874369</VirtualItemUID>
+      <AccessPointA>4194305</AccessPointA>
+      <AccessPointB>4194306</AccessPointB>
+      <PartitionUID1>1048577</PartitionUID1>
+      <PartitionUID2>1048577</PartitionUID2>
+    </DatapointNumbers>
+    <DatapointNumbers>
+      <ItemUID>25165826</ItemUID>
+      <DatapointNumber>13281</DatapointNumber>
+      <DatapointType>300070300</DatapointType>
+      <Name>Bedienteil 001</Name>
+      <ItemType>Bus2Device</ItemType>
+    </DatapointNumbers>
+    <DatapointNumbers>
+      <ItemUID>25165827</ItemUID>
+      <DatapointNumber>10017</DatapointNumber>
+      <DatapointType>300070017</DatapointType>
+      <Name>LCD Keypad 001</Name>
+      <ItemType>Bus2Device</ItemType>
+      <VirtualItemUID>32505857</VirtualItemUID>
+    </DatapointNumbers>
+    <DatapointNumbers>
+      <ItemUID>25165828</ItemUID>
+      <DatapointNumber>10034</DatapointNumber>
+      <DatapointType>300070014</DatapointType>
+      <Name>Grafikbedienteil 001</Name>
+      <ItemType>Bus2Device</ItemType>
+    </DatapointNumbers>
+    <DatapointNumbers>
+      <ItemUID>25165829</ItemUID>
+      <DatapointNumber>11105</DatapointNumber>
+      <DatapointType>300070021</DatapointType>
+      <Name>RF BUS-2 Koppler 001</Name>
+      <ItemType>Bus2Device</ItemType>
+      <RFPeripheralUID>25165829</RFPeripheralUID>
+    </DatapointNumbers>
+  </Datapoints>
+  <LicenseUsage>
+    <Partitions>1</Partitions>
+    <DetectorGroups>6</DetectorGroups>
+    <Doors>0</Doors>
+    <HWDoors>1</HWDoors>
+    <AperioDoors>0</AperioDoors>
+    <Users>3</Users>
+    <UserGroups>2</UserGroups>
+    <Macros>5</Macros>
+    <WirelessDevices>1</WirelessDevices>
+    <Cameras>0</Cameras>
+    <SnmpDevices>1</SnmpDevices>
+    <ConnectionServers>1</ConnectionServers>
+    <RemoteClientAccessLevel1>0</RemoteClientAccessLevel1>
+    <RemoteClientAccessLevel2>0</RemoteClientAccessLevel2>
+    <RemoteClientAccessLevel3>0</RemoteClientAccessLevel3>
+    <ClientKnxOption>0</ClientKnxOption>
+    <ClientMobileAppOption>0</ClientMobileAppOption>
+    <InternalDialerVds2465Option>0</InternalDialerVds2465Option>
+    <InternalDialerSiaDC09Option>0</InternalDialerSiaDC09Option>
+    <DesfireCustomerAppOption>0</DesfireCustomerAppOption>
+    <EncryptionModulbusOption>0</EncryptionModulbusOption>
+    <BusDevices>3</BusDevices>
+  </LicenseUsage>
+  <User>
+    <UID>68157441</UID>
+    <Name>Sikom</Name>
+  </User>
+  <User>
+    <UID>68157442</UID>
+    <Name>Errichter</Name>
+  </User>
+  <User>
+    <UID>68157443</UID>
+    <Name>Sikom - Zeisel</Name>
+  </User>
+</Facility>
