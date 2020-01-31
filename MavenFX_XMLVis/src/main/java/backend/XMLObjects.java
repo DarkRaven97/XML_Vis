@@ -10,6 +10,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Objects;
 import java.util.TreeSet;
 import java.util.stream.Collectors;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -117,19 +118,21 @@ public class XMLObjects {
      */
     public static Collection<IXMLObject> readAllFromFile(Path path) throws IOException {
         try {
-            return collect(DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(path.toFile()).getChildNodes(), "");
+            return collect(DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(path.toFile()).getChildNodes());
         } catch (ParserConfigurationException | SAXException ex) {
             throw new IOException(ex);
         }
     }
 
-    private static Collection<IXMLObject> collect(NodeList nl, String name) {
+    private static Collection<IXMLObject> collect(NodeList nl) {
 //        System.out.println("<---------------------------------------------------------------\n");
         Collection<IXMLObject> erg = new TreeSet<>();
-        for (int i = 1; i <= nl.getLength(); i++) {
+        for (int i = 0; i <= nl.getLength(); i++) {
             Node h = nl.item(i);
+            if(Objects.isNull(h))
+                continue;
             if (!isObject(h)) {
-                erg.addAll(collect(h.getChildNodes(), h.getNodeName()));
+                erg.addAll(collect(h.getChildNodes()));
             } else {
                 XMLObject xo = new XMLObject(h.getNodeName());
                 erg.add(xo);
@@ -156,24 +159,27 @@ public class XMLObjects {
 
     private static boolean isValue(Node n) {
         try {
-            return n.getNodeName().startsWith("#");
+            return n.getNodeName().startsWith("#");//nullpointer exception
         } catch (Exception ex) {
+            ex.printStackTrace();
             return false;
         }
     }
 
     private static boolean isLine(Node n) {
         try {
-            return isValue(n.getFirstChild());
+            return isValue(n.getFirstChild());//nullpointer exception
         } catch (Exception ex) {
+            ex.printStackTrace();
             return false;
         }
     }
 
     private static boolean isObject(Node n) {
         try {
-            return isLine(n.getFirstChild());
+            return isLine(n.getFirstChild()); //nullpointer exception
         } catch (Exception ex) {
+            ex.printStackTrace();
             return false;
         }
     }
