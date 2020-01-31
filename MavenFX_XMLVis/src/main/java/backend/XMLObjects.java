@@ -126,17 +126,17 @@ public class XMLObjects {
     private static Collection<IXMLObject> collect(NodeList nl, String name) {
 //        System.out.println("<---------------------------------------------------------------\n");
         Collection<IXMLObject> erg = new TreeSet<>();
-        for (int i = 0; i < nl.getLength(); i++) {
+        for (int i = 1; i <= nl.getLength(); i++) {
             Node h = nl.item(i);
-            if (childs2(h.getChildNodes())) {
+            if (!isObject(h)) {
                 erg.addAll(collect(h.getChildNodes(), h.getNodeName()));
             } else {
-                XMLObject xo = new XMLObject(name);
+                XMLObject xo = new XMLObject(h.getNodeName());
                 erg.add(xo);
-                for (int j = 0; j < h.getChildNodes().getLength(); j++) {
+                for (int j = 1; j <= h.getChildNodes().getLength(); j++) {
                     Node h2 = h.getChildNodes().item(j);
-                    String tagName = cutStrings(h2.toString());
-                    String tagValue = h2.getNodeValue();
+                    String tagName = h2.getNodeName();
+                    String tagValue = h2.getFirstChild().getNodeValue();
                     xo.addTag(tagName, tagValue);
                 }
 
@@ -154,6 +154,30 @@ public class XMLObjects {
         return erg;
     }
 
+    private static boolean isValue(Node n) {
+        try {
+            return n.getNodeName().startsWith("#");
+        } catch (Exception ex) {
+            return false;
+        }
+    }
+
+    private static boolean isLine(Node n) {
+        try {
+            return isValue(n.getFirstChild());
+        } catch (Exception ex) {
+            return false;
+        }
+    }
+
+    private static boolean isObject(Node n) {
+        try {
+            return isLine(n.getFirstChild());
+        } catch (Exception ex) {
+            return false;
+        }
+    }
+
     private static boolean childs(NodeList nl) {
         for (int i = 0; i < nl.getLength(); i++) {
             if (nl.item(i).hasChildNodes()) {
@@ -162,6 +186,7 @@ public class XMLObjects {
         }
         return false;
     }
+
     private static boolean childs2(NodeList nl) {
         for (int i = 0; i < nl.getLength(); i++) {
             if (childs(nl.item(i).getChildNodes())) {
@@ -170,6 +195,7 @@ public class XMLObjects {
         }
         return false;
     }
+
     private static String cutStringValue(String s) {
         return s.substring(s.indexOf(' ') + 1, s.length() - 1);
     }
@@ -236,4 +262,3 @@ public class XMLObjects {
         return parent.getChildren();
     }
 }
-
