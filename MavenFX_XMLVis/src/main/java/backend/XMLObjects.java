@@ -127,9 +127,9 @@ public class XMLObjects {
     private static Collection<IXMLObject> collect(NodeList nl,boolean first) {
 //        System.out.println("<---------------------------------------------------------------\n");
         Collection<IXMLObject> erg = new TreeSet<>();
-        int i = 0;
+        int i = 1;
         if(first)
-            i++;
+            i--;
         for (; i <= nl.getLength(); i++) {
             Node h = nl.item(i);
             if (Objects.isNull(h)) {
