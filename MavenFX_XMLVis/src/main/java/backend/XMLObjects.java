@@ -118,21 +118,24 @@ public class XMLObjects {
      */
     public static Collection<IXMLObject> readAllFromFile(Path path) throws IOException {
         try {
-            return collect(DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(path.toFile()).getChildNodes());
+            return collect(DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(path.toFile()).getChildNodes(),true);
         } catch (ParserConfigurationException | SAXException ex) {
             throw new IOException(ex);
         }
     }
 
-    private static Collection<IXMLObject> collect(NodeList nl) {
+    private static Collection<IXMLObject> collect(NodeList nl,boolean first) {
 //        System.out.println("<---------------------------------------------------------------\n");
         Collection<IXMLObject> erg = new TreeSet<>();
-        for (int i = 0; i <= nl.getLength(); i++) {
+        int i = 0;
+        if(first)
+            i++;
+        for (; i <= nl.getLength(); i++) {
             Node h = nl.item(i);
             if (Objects.isNull(h)) {
 //                continue;
             } else if (!isObject(h)) {
-                erg.addAll(collect(h.getChildNodes()));
+                erg.addAll(collect(h.getChildNodes(),false));
             } else {
                 XMLObject xo = new XMLObject(h.getNodeName());
                 erg.add(xo);
@@ -161,7 +164,7 @@ public class XMLObjects {
         if (Objects.isNull(n)) {
             return false;
         }
-        return !Objects.isNull(n.getNodeValue());//nullpointer exception
+        return Objects.isNull(n.getFirstChild());//nullpointer exception
 
     }
 
@@ -169,7 +172,11 @@ public class XMLObjects {
         if (Objects.isNull(n)) {
             return false;
         }
-        return isValue(n.getFirstChild());//nullpointer exception
+        Node h = n.getFirstChild();
+//        if (Objects.nonNull(h) && Objects.nonNull(h.getNodeValue()) && h.getNodeValue().startsWith("\n")) {
+//            return isLine(h.getNextSibling());
+//        }
+        return isValue(h);
 
     }
 
@@ -178,10 +185,10 @@ public class XMLObjects {
             return false;
         }
         Node h = n.getFirstChild();
-        if (Objects.nonNull(h.getNodeValue())&&h.getNodeValue().startsWith("\n")) {
-            return isObject(h.getNextSibling());
-        }
-        return isLine(h); //nullpointer exception
+//        if (Objects.nonNull(h) && Objects.nonNull(h.getNodeValue()) && h.getNodeValue().startsWith("\n")) {
+//            return isObject(h.getNextSibling());
+//        }
+        return isLine(h);
     }
 
     private static boolean childs(NodeList nl) {
