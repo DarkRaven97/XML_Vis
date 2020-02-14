@@ -130,9 +130,8 @@ public class XMLObjects {
         for (int i = 0; i <= nl.getLength(); i++) {
             Node h = nl.item(i);
             if (Objects.isNull(h)) {
-                continue;
-            }
-            if (!isObject(h)) {
+//                continue;
+            } else if (!isObject(h)) {
                 erg.addAll(collect(h.getChildNodes()));
             } else {
                 XMLObject xo = new XMLObject(h.getNodeName());
@@ -162,7 +161,7 @@ public class XMLObjects {
         if (Objects.isNull(n)) {
             return false;
         }
-        return n.getNodeName().startsWith("#");//nullpointer exception
+        return !Objects.isNull(n.getNodeValue());//nullpointer exception
 
     }
 
@@ -178,7 +177,11 @@ public class XMLObjects {
         if (Objects.isNull(n)) {
             return false;
         }
-        return isLine(n.getFirstChild()); //nullpointer exception
+        Node h = n.getFirstChild();
+        if (Objects.nonNull(h.getNodeValue())&&h.getNodeValue().startsWith("\n")) {
+            return isObject(h.getNextSibling());
+        }
+        return isLine(h); //nullpointer exception
     }
 
     private static boolean childs(NodeList nl) {
@@ -264,4 +267,9 @@ public class XMLObjects {
         });
         return parent.getChildren();
     }
+}
+
+interface testNode {
+
+    boolean test(Node n);
 }
