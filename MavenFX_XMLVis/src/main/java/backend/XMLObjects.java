@@ -129,8 +129,9 @@ public class XMLObjects {
         Collection<IXMLObject> erg = new TreeSet<>();
         for (int i = 0; i <= nl.getLength(); i++) {
             Node h = nl.item(i);
-            if(Objects.isNull(h))
+            if (Objects.isNull(h)) {
                 continue;
+            }
             if (!isObject(h)) {
                 erg.addAll(collect(h.getChildNodes()));
             } else {
@@ -158,30 +159,26 @@ public class XMLObjects {
     }
 
     private static boolean isValue(Node n) {
-        try {
-            return n.getNodeName().startsWith("#");//nullpointer exception
-        } catch (Exception ex) {
-            ex.printStackTrace();
+        if (Objects.isNull(n)) {
             return false;
         }
+        return n.getNodeName().startsWith("#");//nullpointer exception
+
     }
 
     private static boolean isLine(Node n) {
-        try {
-            return isValue(n.getFirstChild());//nullpointer exception
-        } catch (Exception ex) {
-            ex.printStackTrace();
+        if (Objects.isNull(n)) {
             return false;
         }
+        return isValue(n.getFirstChild());//nullpointer exception
+
     }
 
     private static boolean isObject(Node n) {
-        try {
-            return isLine(n.getFirstChild()); //nullpointer exception
-        } catch (Exception ex) {
-            ex.printStackTrace();
+        if (Objects.isNull(n)) {
             return false;
         }
+        return isLine(n.getFirstChild()); //nullpointer exception
     }
 
     private static boolean childs(NodeList nl) {
