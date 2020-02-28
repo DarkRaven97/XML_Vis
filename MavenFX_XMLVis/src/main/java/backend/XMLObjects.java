@@ -128,15 +128,16 @@ public class XMLObjects {
         NodeList nl = parent.getChildNodes();
         for (int i = 0; i <= nl.getLength(); i++) {
             Node n = nl.item(i);
-                if(Objects.nonNull(n)&& Objects.nonNull(n.getNodeValue()) &&n.getNodeValue().startsWith("\n")){
-                    parent.removeChild(n);
-                    continue;
-                }
-                if(Objects.nonNull(n)&&Objects.nonNull(n.getChildNodes())) {
-                    out(n);
-                }
-                System.out.println(n);
-                
+            if (isValue(n) && n.getNodeValue().startsWith("\n")) {
+                parent.removeChild(n);
+                System.out.println(nl.getLength());
+                continue;
+            }
+            if (Objects.nonNull(n) && Objects.nonNull(n.getChildNodes())) {
+                out(n);
+            }
+            System.out.println(n);
+
         }
     }
 
