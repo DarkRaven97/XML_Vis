@@ -10,6 +10,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.LinkedList;
 import java.util.Objects;
 import java.util.TreeSet;
 import java.util.stream.Collectors;
@@ -124,33 +125,42 @@ public class XMLObjects {
         }
     }
 
-    private static void out(Node parent) {
+    private static Collection<Node> out(Node parent) {
+        Collection<Node> erg = new LinkedList();
         NodeList nl = parent.getChildNodes();
         for (int i = 0; i <= nl.getLength(); i++) {
             Node n = nl.item(i);
-            if (isValue(n) && n.getNodeValue().startsWith("\n")) {
+            if (Objects.nonNull(n)&&Objects.nonNull(n.getNodeValue()) && n.getNodeValue().startsWith("\n")) {
                 parent.removeChild(n);
-                System.out.println(nl.getLength());
+//                System.out.println(nl.getLength());
                 continue;
             }
             if (Objects.nonNull(n) && Objects.nonNull(n.getChildNodes())) {
                 out(n);
             }
             System.out.println(n);
-
+            erg.add(n);
+        }
+        return erg;
+    }
+    /*
+    private static Collection<IXMLObject> collect(Node nf){
+        for (int i = 0; i < nf.; i++) {
+            nf.normalize();
         }
     }
-
+*/
     private static Collection<IXMLObject> collect(Node nf) {
         NodeList nl = nf.getChildNodes();
         out(nf);
+        
 //        System.out.println("<---------------------------------------------------------------\n");
         Collection<IXMLObject> erg = new TreeSet<>();
 
         for (int i = 0; i <= nl.getLength(); i++) {
             Node n = nl.item(i);
             if (Objects.isNull(n)) {
-//                continue;
+                continue;
             } else if (!isObject(n)) {
                 erg.addAll(collect(n));
             } else {
@@ -177,13 +187,7 @@ public class XMLObjects {
         return erg;
     }
 
-    private static boolean isValue(Node n) {
-        if (Objects.isNull(n)) {
-            return false;
-        }
-        return Objects.isNull(n.getFirstChild());//nullpointer exception
 
-    }
 
     private static boolean isLine(Node n) {
         if (Objects.isNull(n)) {
@@ -193,7 +197,7 @@ public class XMLObjects {
 //        if (Objects.nonNull(h) && Objects.nonNull(h.getNodeValue()) && h.getNodeValue().startsWith("\n")) {
 //            return isLine(h.getNextSibling());
 //        }
-        return isValue(h);
+        return h.hasAttributes();
 
     }
 
@@ -201,7 +205,10 @@ public class XMLObjects {
         if (Objects.isNull(n) || Objects.isNull(n.getFirstChild())) {
             return false;
         }
-        Node h = n.getFirstChild().getNextSibling();
+        Node h = n.getFirstChild();
+        while(h.getNodeValue().startsWith("\n")){
+            h=h.getNextSibling();
+        }
 //        if (Objects.nonNull(h) && Objects.nonNull(h.getNodeValue()) && h.getNodeValue().startsWith("\n")) {
 //            return isObject(h.getNextSibling());
 //        }
