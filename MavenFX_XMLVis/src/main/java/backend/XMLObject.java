@@ -12,6 +12,8 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Objects;
 import javafx.scene.image.Image;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
 /**
  *
@@ -28,6 +30,21 @@ public class XMLObject implements IXMLObject {
     private Collection<Integer> foreignKeys = new HashSet<>();
     private Image icon;
     private IXMLObject parent;
+
+    public XMLObject(Node n) {
+        tagName = n.getNodeName();
+        NodeList nl = n.getChildNodes();
+        for (int i = 0; i <= nl.getLength(); i++) {
+            try {
+                Node n2 = nl.item(i);
+                if (Objects.isNull(n2.getNodeValue())) {
+                    this.addTag(n2.getNodeName(), n2.getChildNodes().item(0).getNodeValue());
+                }
+            } catch (NullPointerException npe) {
+//                npe.printStackTrace();
+            }
+        }
+    }
 
     public XMLObject(String tagName) {
         this.tagName = tagName;
@@ -61,10 +78,6 @@ public class XMLObject implements IXMLObject {
 
     public String getTagName() {
         return tagName;
-    }
-
-    public Integer getUid() {
-        return uid;
     }
 
     public void setUid(Integer uid) {
@@ -110,6 +123,7 @@ public class XMLObject implements IXMLObject {
 
     @Override
     public void addTag(String tagName, String tagValue) {
+        tags.put(tagName, tagValue);
         try {
             if (tagName.equalsIgnoreCase("UID")) {
                 uid = Integer.parseInt(tagValue);
@@ -121,9 +135,7 @@ public class XMLObject implements IXMLObject {
                 int h = Integer.parseInt(tagValue);
                 foreignKeys.add(h);
             }
-            tags.put(tagName, tagValue);
         } catch (NumberFormatException ex) {
-            ex.printStackTrace();
         }
     }
 
@@ -163,7 +175,7 @@ public class XMLObject implements IXMLObject {
 
     @Override
     public void setParent(IXMLObject parent) {
-        if (((XMLObject) parent).isMyChild(parent)) {
+        if (((XMLObject) parent).isMyChild(this)) {
             this.parent = parent;
         }
     }
@@ -204,8 +216,11 @@ public class XMLObject implements IXMLObject {
 
     private boolean isMyChild(IXMLObject o) {
         for (Map.Entry e : o.getTags().entrySet()) {
-            if (this.uid.equals(Integer.parseInt(e.getValue().toString()))) {
-                return true;
+            try {
+                if (this.uid.equals(Integer.parseInt(e.getValue().toString()))) {
+                    return true;
+                }
+            } catch (NumberFormatException nfe) {
             }
         }
         return false;
@@ -213,7 +228,7 @@ public class XMLObject implements IXMLObject {
 
     @Override
     public String toString() {
-        return "XMLObject{" + "tagName=" + tagName + ", uid=" + uid + ", name=" + name + ", type=" + type + ", tags=" + tags + '}';
+        return String.format("tagName = %-22s uid = %-10d name = %-25s type = %-12s tags = ", tagName,uid,name,type)+tags;
     }
 
     @Override
@@ -221,10 +236,10 @@ public class XMLObject implements IXMLObject {
         if (!(o instanceof XMLObject)) {
             return -1;
         }
-        if (!this.tagName.equals(o.getName())) {
-            return this.tagName.compareTo(o.getTagName());
+        if (Objects.nonNull(this.uid) && Objects.nonNull(o.getUID()) && !this.uid.equals(o.getUID())) {
+            return this.uid.compareTo(o.getUID());
         }
-        return Integer.compare(this.uid, o.getUID());
+        return this.getTagName().compareTo(o.getTagName());
     }
 
 }

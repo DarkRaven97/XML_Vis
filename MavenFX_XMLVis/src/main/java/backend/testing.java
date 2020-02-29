@@ -24,7 +24,7 @@ public class testing {
      */
     public static void main(String[] args) throws IOException {
         try {
-            XMLObjects.readAllFromFile(Paths.get("panel.xml")).forEach(System.out::println);
+            XMLObjects.readFacility(Paths.get("panel.xml")).forEach(System.out::println);
         } catch (IOException ex) {
             Logger.getLogger(testing.class.getName()).log(Level.SEVERE, null, ex);
         }

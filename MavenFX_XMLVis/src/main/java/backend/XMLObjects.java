@@ -10,13 +10,14 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.Map;
 import java.util.Objects;
 import java.util.TreeSet;
 import java.util.stream.Collectors;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
@@ -26,7 +27,9 @@ import org.xml.sax.SAXException;
  * @author 20150210 Gravogel Klaus 3AHIF
  */
 public class XMLObjects {
-
+    
+    private static final Map<Integer, String> names = new HashMap<>();
+    
     public static IXMLObject testFile() {
         return TestObject.getTestRoot();
     }
@@ -125,31 +128,33 @@ public class XMLObjects {
             throw new IOException(ex);
         }
     }
-private static final void textOutput(String what,String out){
-    out = out.replaceAll("\\\\", "\\\\\\\\");
-    System.out.println(what+": "+out);
-}
+    
+    private static final void textOutput(String what, String out) {
+        out = out.replaceAll("\\\\", "\\\\\\\\");
+        System.out.println(what + ": " + out);
+    }
+    
     private static Collection<Node> out(Node parent) {
-        System.out.println("Starting out");
+//        System.out.println("Starting out");
         Collection<Node> erg = new LinkedList();
-        try{
-        NodeList nl = parent.getChildNodes();
-        for (int i = 0; i <= nl.getLength(); i++) {
-            System.out.println("Start of Loop "+i);
-            Node n = nl.item(i);
-            
-            textOutput("Node", n.toString());
-            textOutput("Type", ""+n.getNodeType());
-            if (n.hasChildNodes()) {
-               erg.addAll(out(n));
-            } else if(!n.getNodeValue().startsWith("\n")){
-                erg.add(n);
-                System.out.println("Adding "+n);
+        try {
+            NodeList nl = parent.getChildNodes();
+            for (int i = 0; i <= nl.getLength(); i++) {
+//            System.out.println("Start of Loop "+i);
+                Node n = nl.item(i);
+
+//            textOutput("Node", n.toString());
+//            textOutput("Type", ""+n.getNodeType());
+                if (n.hasChildNodes()) {
+                    erg.addAll(out(n));
+                } else if (!n.getNodeValue().startsWith("\n")) {
+                    erg.add(n.getParentNode().getParentNode());
+//                System.out.println("Adding "+n);
+                }
+//            System.out.println("End of Loop "+i);
             }
-            System.out.println("End of Loop "+i);
-        }
-        } catch(NullPointerException npe){
-            System.out.println("NullPointerException "+npe.getMessage());
+        } catch (NullPointerException npe) {
+//            System.out.println("NullPointerException "+npe.getMessage());
         }
         return erg;
     }
@@ -167,7 +172,17 @@ private static final void textOutput(String what,String out){
         System.out.println(c.size());
 //        System.out.println("<---------------------------------------------------------------\n");
         Collection<IXMLObject> erg = new TreeSet<>();
-
+        for (Node node : c) {
+            XMLObject h = new XMLObject(node);
+            if (!isName(h)) {
+                erg.add(h);
+                if (Objects.nonNull(h.getName())) {
+                    h.setName(getName(Integer.parseInt(h.getName())));
+                }
+            }
+            
+        }
+        /*
         for (int i = 0; i <= nl.getLength(); i++) {
             Node n = nl.item(i);
             if (Objects.isNull(n)) {
@@ -191,13 +206,14 @@ private static final void textOutput(String what,String out){
 //                }
             }
         }
+         */
 //        System.out.println("--------------------------------------------------------------->\n");
 //        other.addAll(erg);
 //        names.addAll(erg.stream().filter(a -> a.isNameObject()).collect(Collectors.toList()));
 //        other.retainAll(names);
         return erg;
     }
-
+    
     private static boolean isLine(Node n) {
         if (Objects.isNull(n)) {
             return false;
@@ -207,13 +223,13 @@ private static final void textOutput(String what,String out){
 //            return isLine(h.getNextSibling());
 //        }
         return h.hasAttributes();
-
+        
     }
-
+    
     private static boolean isObject(Node n) {
-       return n.getTextContent().contains("");
+        return n.getTextContent().contains("");
     }
-
+    
     private static boolean childs(NodeList nl) {
         for (int i = 0; i < nl.getLength(); i++) {
             if (nl.item(i).hasChildNodes()) {
@@ -222,7 +238,7 @@ private static final void textOutput(String what,String out){
         }
         return false;
     }
-
+    
     private static boolean childs2(NodeList nl) {
         for (int i = 0; i < nl.getLength(); i++) {
             if (childs(nl.item(i).getChildNodes())) {
@@ -231,11 +247,11 @@ private static final void textOutput(String what,String out){
         }
         return false;
     }
-
+    
     private static String cutStringValue(String s) {
         return s.substring(s.indexOf(' ') + 1, s.length() - 1);
     }
-
+    
     private static String cutStrings(String s) {
         return s.substring(1, s.indexOf(' ') - 1);
     }
@@ -290,15 +306,34 @@ private static final void textOutput(String what,String out){
     public static Collection<IXMLObject> createTree(Path path, boolean ignoreTypes, String... types) throws IOException {
         return createTree(readAllFromFile(path), ignoreTypes, types);
     }
-
+    
     public static Collection<IXMLObject> getChildren(Collection<IXMLObject> objects, IXMLObject parent) {
         objects.parallelStream().forEach(object -> {
-
+            object.getForeignKeys().forEach(i -> {
+                if (i.equals(parent.getUID())) {
+                    parent.addChildren(object);
+                }
+            });
         });
         return parent.getChildren();
+    }
+    
+    public static boolean isName(XMLObject obj) {
+        try {
+            Integer.parseInt(obj.getName());
+            return false;
+        } catch (NumberFormatException nfe) {
+            names.put(obj.getUID(), obj.getName());
+            return true;
+        }
+    }
+    
+    public static String getName(Integer uid) {
+        return names.get(uid);
     }
 }
 
 interface testNode {
+    
     boolean test(Node n);
 }
