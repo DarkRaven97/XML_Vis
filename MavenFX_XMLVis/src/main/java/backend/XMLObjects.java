@@ -51,7 +51,7 @@ public class XMLObjects {
      * @return the root object of the panel.xml (Zentrale)
      */
     public static IXMLObject readPanel(Path panelPath) throws IOException {
-        return (IXMLObject) createTree(panelPath, true, "User").toArray()[0];
+        return (IXMLObject) createTree(panelPath, true, "User").stream().findAny().get();
     }
 
     /**
@@ -129,43 +129,24 @@ public class XMLObjects {
         }
     }
     
-    private static final void textOutput(String what, String out) {
-        out = out.replaceAll("\\\\", "\\\\\\\\");
-        System.out.println(what + ": " + out);
-    }
-    
     private static Collection<Node> out(Node parent) {
-//        System.out.println("Starting out");
         Collection<Node> erg = new LinkedList();
         try {
             NodeList nl = parent.getChildNodes();
             for (int i = 0; i <= nl.getLength(); i++) {
-//            System.out.println("Start of Loop "+i);
                 Node n = nl.item(i);
-
-//            textOutput("Node", n.toString());
-//            textOutput("Type", ""+n.getNodeType());
                 if (n.hasChildNodes()) {
                     erg.addAll(out(n));
                 } else if (!n.getNodeValue().startsWith("\n")) {
                     erg.add(n.getParentNode().getParentNode());
-//                System.out.println("Adding "+n);
                 }
-//            System.out.println("End of Loop "+i);
             }
         } catch (NullPointerException npe) {
-//            System.out.println("NullPointerException "+npe.getMessage());
         }
         return erg;
     }
 
-    /*
-    private static Collection<IXMLObject> collect(Node nf){
-        for (int i = 0; i < nf.; i++) {
-            nf.normalize();
-        }
-    }
-     */
+    
     private static Collection<IXMLObject> collect(Node nf) {
         NodeList nl = nf.getChildNodes();
         Collection<Node> c = out(nf);
@@ -182,78 +163,7 @@ public class XMLObjects {
             }
             
         }
-        /*
-        for (int i = 0; i <= nl.getLength(); i++) {
-            Node n = nl.item(i);
-            if (Objects.isNull(n)) {
-                continue;
-            } else if (!isObject(n)) {
-                erg.addAll(collect(n));
-            } else {
-                XMLObject xo = new XMLObject(n.getNodeName());
-                erg.add(xo);
-                for (int j = 1; j <= n.getChildNodes().getLength(); j++) {
-                    Node h2 = n.getChildNodes().item(j);
-                    String tagName = h2.getNodeName();
-                    String tagValue = h2.getFirstChild().getNodeValue();
-                    xo.addTag(tagName, tagValue);
-                }
-
-//                System.out.println(h.getParentNode() + " " + h + " " + h.getChildNodes().item(0));
-//                String bonusTag = XSL.get(tagValue);
-//                if (Objects.nonNull(bonusTag)) {
-//                    xo.addTag("XSLString", bonusTag);
-//                }
-            }
-        }
-         */
-//        System.out.println("--------------------------------------------------------------->\n");
-//        other.addAll(erg);
-//        names.addAll(erg.stream().filter(a -> a.isNameObject()).collect(Collectors.toList()));
-//        other.retainAll(names);
         return erg;
-    }
-    
-    private static boolean isLine(Node n) {
-        if (Objects.isNull(n)) {
-            return false;
-        }
-        Node h = n.getFirstChild();
-//        if (Objects.nonNull(h) && Objects.nonNull(h.getNodeValue()) && h.getNodeValue().startsWith("\n")) {
-//            return isLine(h.getNextSibling());
-//        }
-        return h.hasAttributes();
-        
-    }
-    
-    private static boolean isObject(Node n) {
-        return n.getTextContent().contains("");
-    }
-    
-    private static boolean childs(NodeList nl) {
-        for (int i = 0; i < nl.getLength(); i++) {
-            if (nl.item(i).hasChildNodes()) {
-                return true;
-            }
-        }
-        return false;
-    }
-    
-    private static boolean childs2(NodeList nl) {
-        for (int i = 0; i < nl.getLength(); i++) {
-            if (childs(nl.item(i).getChildNodes())) {
-                return true;
-            }
-        }
-        return false;
-    }
-    
-    private static String cutStringValue(String s) {
-        return s.substring(s.indexOf(' ') + 1, s.length() - 1);
-    }
-    
-    private static String cutStrings(String s) {
-        return s.substring(1, s.indexOf(' ') - 1);
     }
 
     /**
@@ -263,8 +173,13 @@ public class XMLObjects {
      * @return a collection of the root Objects
      */
     public static Collection<IXMLObject> createTree(Collection<IXMLObject> objects) {
-        objects.forEach((object) -> {
-            getChildren(objects, object);
+        objects.parallelStream().forEach((object) -> {
+            objects.parallelStream().forEach((object2)->{
+                object2.getForeignKeys().parallelStream().forEach(i->{
+                    if(i.equals(object.equals(i)))
+                        object.addChildren(object2);
+                });
+            });
         });
         return (Collection<IXMLObject>) objects.parallelStream().filter(t -> ((IXMLObject) t).isRoot()).collect(Collectors.toSet());
     }
@@ -307,17 +222,11 @@ public class XMLObjects {
         return createTree(readAllFromFile(path), ignoreTypes, types);
     }
     
-    public static Collection<IXMLObject> getChildren(Collection<IXMLObject> objects, IXMLObject parent) {
-        objects.parallelStream().forEach(object -> {
-            object.getForeignKeys().forEach(i -> {
-                if (i.equals(parent.getUID())) {
-                    parent.addChildren(object);
-                }
-            });
-        });
-        return parent.getChildren();
-    }
-    
+    /**
+     * Returns True is the given Object consists of only UID and Name
+     * @param obj
+     * @return 
+     */
     public static boolean isName(XMLObject obj) {
         try {
             Integer.parseInt(obj.getName());
@@ -331,9 +240,5 @@ public class XMLObjects {
     public static String getName(Integer uid) {
         return names.get(uid);
     }
-}
 
-interface testNode {
-    
-    boolean test(Node n);
 }

@@ -151,9 +151,9 @@ public class XMLObject implements IXMLObject {
 
     @Override
     public void addChildren(IXMLObject child) {
-//        if (!isMyChild(child)) {
-//            throw new IllegalArgumentException("");
-//        }
+        if (!isMyChild(child)) {
+            throw new IllegalArgumentException();
+        }
         this.children.add(child);
         child.setParent(this);
     }
@@ -175,9 +175,7 @@ public class XMLObject implements IXMLObject {
 
     @Override
     public void setParent(IXMLObject parent) {
-        if (((XMLObject) parent).isMyChild(this)) {
             this.parent = parent;
-        }
     }
 
     @Override
@@ -228,9 +226,17 @@ public class XMLObject implements IXMLObject {
 
     @Override
     public String toString() {
-        return String.format("tagName = %-22s uid = %-10d name = %-25s type = %-12s tags = ", tagName,uid,name,type)+tags;
+        return String.format("tagName = %-22s uid = %-10d name = %-30s type = %-12s tags = ", tagName,uid,name,type)+tags;
     }
 
+    public String toString(String tab){
+        StringBuilder sb = new StringBuilder(tab);
+        sb.append(tab).append(this.toString());
+        for (IXMLObject iXMLObject : children) {
+            sb.append("/n").append(tab).append(((XMLObject)iXMLObject).toString(tab+" "));
+        }
+        return sb.toString();
+    }
     @Override
     public int compareTo(IXMLObject o) {
         if (!(o instanceof XMLObject)) {
